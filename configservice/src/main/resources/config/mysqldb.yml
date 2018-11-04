@@ -1,0 +1,21 @@
+spring:
+  datasource:
+    name: mydb
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://115.159.23.182:3306/wenwuzx
+    username: tzqopr2
+    password: wenwu201809#
+    driver-class-name: com.mysql.jdbc.Driver
+    filters: stat
+    minIdle: 1
+    maxActive: 20
+    initialSize: 1
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 3000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 'ZTM' FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    poolPreparedStatements: true
+    maxOpenPreparedStatements: 20

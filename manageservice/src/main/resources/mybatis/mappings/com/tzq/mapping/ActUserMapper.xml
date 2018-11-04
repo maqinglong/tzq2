@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzq.dao.ActUserMapper">
+  <resultMap id="BaseResultMap" type="com.tzq.model.ActUser">
+    <id column="Id" jdbcType="BIGINT" property="id" />
+    <id column="user_No" jdbcType="VARCHAR" property="userNo" />
+    <result column="user_Name" jdbcType="VARCHAR" property="userName" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="phone" jdbcType="VARCHAR" property="phone" />
+    <result column="Id_Type" jdbcType="VARCHAR" property="idType" />
+    <result column="Id_No" jdbcType="VARCHAR" property="idNo" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="reg_Time" jdbcType="TIMESTAMP" property="regTime" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="tzq_level" jdbcType="VARCHAR" property="tzqLevel" />
+    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    Id, user_No, user_Name, mobile, phone, Id_Type, Id_No, sex, reg_Time, company, tzq_level, 
+    create_Time, update_Time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.tzq.model.ActUserKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from act_users
+    where Id = #{id,jdbcType=BIGINT}
+      and user_No = #{userNo,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.tzq.model.ActUserKey">
+    delete from act_users
+    where Id = #{id,jdbcType=BIGINT}
+      and user_No = #{userNo,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tzq.model.ActUser">
+    insert into act_users (Id, user_No, user_Name, 
+      mobile, phone, Id_Type, 
+      Id_No, sex, reg_Time, 
+      company, tzq_level, create_Time, 
+      update_Time)
+    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR}, 
+      #{idNo,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{regTime,jdbcType=TIMESTAMP}, 
+      #{company,jdbcType=VARCHAR}, #{tzqLevel,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tzq.model.ActUser">
+    insert into act_users
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        Id,
+      </if>
+      <if test="userNo != null">
+        user_No,
+      </if>
+      <if test="userName != null">
+        user_Name,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="idType != null">
+        Id_Type,
+      </if>
+      <if test="idNo != null">
+        Id_No,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="regTime != null">
+        reg_Time,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="tzqLevel != null">
+        tzq_level,
+      </if>
+      <if test="createTime != null">
+        create_Time,
+      </if>
+      <if test="updateTime != null">
+        update_Time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="userNo != null">
+        #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null">
+        #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="tzqLevel != null">
+        #{tzqLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tzq.model.ActUser">
+    update act_users
+    <set>
+      <if test="userName != null">
+        user_Name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="idType != null">
+        Id_Type = #{idType,jdbcType=VARCHAR},
+      </if>
+      <if test="idNo != null">
+        Id_No = #{idNo,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="regTime != null">
+        reg_Time = #{regTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="tzqLevel != null">
+        tzq_level = #{tzqLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_Time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_Time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where Id = #{id,jdbcType=BIGINT}
+      and user_No = #{userNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tzq.model.ActUser">
+    update act_users
+    set user_Name = #{userName,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      Id_Type = #{idType,jdbcType=VARCHAR},
+      Id_No = #{idNo,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      reg_Time = #{regTime,jdbcType=TIMESTAMP},
+      company = #{company,jdbcType=VARCHAR},
+      tzq_level = #{tzqLevel,jdbcType=VARCHAR},
+      create_Time = #{createTime,jdbcType=TIMESTAMP},
+      update_Time = #{updateTime,jdbcType=TIMESTAMP}
+    where Id = #{id,jdbcType=BIGINT}
+      and user_No = #{userNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

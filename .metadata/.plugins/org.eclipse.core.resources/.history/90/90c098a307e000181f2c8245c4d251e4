@@ -1,0 +1,35 @@
+package com.tzq.login.entity;
+
+import java.io.Serializable;
+
+public class WechatAuthenticationResponse implements Serializable{
+	/**
+	 * 序列化
+	 */
+	private static final long serialVersionUID = -7592043617367045314L;
+	private String thirdSession;
+//	private String 
+	public WechatAuthenticationResponse(String thirdSession) {
+		this.thirdSession =  thirdSession;
+	}
+	public String getThirdSession() {
+		return thirdSession;
+	}
+	public void setThirdSession(String thirdSession) {
+		this.thirdSession = thirdSession;
+	}
+
+}
+
+class Data {
+	private String access_token;
+
+	public String getAccess_token() {
+		return access_token;
+	}
+
+	public void setAccess_token(String access_token) {
+		this.access_token = access_token;
+	}
+	
+}

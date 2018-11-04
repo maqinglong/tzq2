@@ -1,0 +1,23 @@
+server:
+  port: 8080
+spring:
+  application:
+    name: gatewayservice     
+  cloud:
+    gateway:
+      routes:
+      - id: nameRoot
+        uri: lb://manageservice
+        predicates:
+        - Path=/gatewaytowenwu/**
+        filters:
+        - StripPrefix=1
+eureka:
+  instance:
+    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+          defaultZone: http://localhost:8671/eureka/

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzq.dao.ActivesMapper">
+  <resultMap id="BaseResultMap" type="com.tzq.model.Actives">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="act_No" jdbcType="VARCHAR" property="actNo" />
+    <result column="act_Name" jdbcType="VARCHAR" property="actName" />
+    <result column="organizer" jdbcType="VARCHAR" property="organizer" />
+    <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, act_No, act_Name, organizer, create_Time, update_Time
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from actives
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from actives
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.tzq.model.Actives">
+    insert into actives (id, act_No, act_Name, 
+      organizer, create_Time, update_Time
+      )
+    values (#{id,jdbcType=BIGINT}, #{actNo,jdbcType=VARCHAR}, #{actName,jdbcType=VARCHAR}, 
+      #{organizer,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tzq.model.Actives">
+    insert into actives
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="actNo != null">
+        act_No,
+      </if>
+      <if test="actName != null">
+        act_Name,
+      </if>
+      <if test="organizer != null">
+        organizer,
+      </if>
+      <if test="createTime != null">
+        create_Time,
+      </if>
+      <if test="updateTime != null">
+        update_Time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="actNo != null">
+        #{actNo,jdbcType=VARCHAR},
+      </if>
+      <if test="actName != null">
+        #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizer != null">
+        #{organizer,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tzq.model.Actives">
+    update actives
+    <set>
+      <if test="actNo != null">
+        act_No = #{actNo,jdbcType=VARCHAR},
+      </if>
+      <if test="actName != null">
+        act_Name = #{actName,jdbcType=VARCHAR},
+      </if>
+      <if test="organizer != null">
+        organizer = #{organizer,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null">
+        create_Time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null">
+        update_Time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tzq.model.Actives">
+    update actives
+    set act_No = #{actNo,jdbcType=VARCHAR},
+      act_Name = #{actName,jdbcType=VARCHAR},
+      organizer = #{organizer,jdbcType=VARCHAR},
+      create_Time = #{createTime,jdbcType=TIMESTAMP},
+      update_Time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

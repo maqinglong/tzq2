@@ -1,0 +1,9 @@
+package com.tzq.login.entity;
+
+public class WechatAuthenticationResponseData {
+
+	public WechatAuthenticationResponseData() {
+		// TODO Auto-generated constructor stub
+	}
+
+}

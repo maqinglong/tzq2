@@ -1,0 +1,65 @@
+server:
+  servlet:
+    context-path: /
+  port: 8443
+  ssl:
+    key-store: classpath:k.keystore
+    key-store-password: Tuozhan20181008!
+    keyStoreType: JKS
+    keyAlias: tomcat
+spring:
+  application:
+    name: manageservice
+#  profiles:
+#    active: native
+  cloud:
+    config:
+      name: dbconfig,mysqldb
+      profile: dev
+#      uri: http://localhost:8888      
+#      label: master
+#      fail-fast: true
+#      retry:
+#        initial-interval: 2000
+#        max-attempts: 5
+      discovery: 
+        enabled: true
+        service-id: configservice
+#  datasource:
+#    name: mydb
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://127.0.0.1:3306/tzq
+#    username: root
+#    password: 
+#    driver-class-name: com.mysql.jdbc.Driver
+#    minIdle: 1
+#    maxActive: 2
+#    initialSize: 1
+#    timeBetweenEvictionRunsMillis: 3000
+#    minEvictableIdleTimeMillis: 300000
+#    validationQuery: SELECT 'ZTM' FROM DUAL
+#    testWhileIdle: true
+#    testOnBorrow: false
+#    testOnReturn: false
+ 
+mybatis:
+   mapperLocations: classpath:mybatis/mappings/com/tzq/mapping/*.xml
+#  mvc:
+#    view:
+#      prefix: /pages
+#      suffix: .jsp    
+#      
+      
+logging:
+  level:
+   root: info
+    
+eureka:
+  instance:
+    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+          defaultZone: http://localhost:8671/eureka/

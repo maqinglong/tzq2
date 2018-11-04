@@ -1,0 +1,21 @@
+server:
+  port: 8888
+spring:
+  cloud:
+    config:
+      server:
+        native:
+          search-locations: classpath:/config
+  application: 
+   name: configservice
+  profiles:
+   active: native
+eureka:
+  instance:
+    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+          defaultZone: http://132.232.223.226:8671/eureka/
