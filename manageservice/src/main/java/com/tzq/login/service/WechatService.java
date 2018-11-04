@@ -12,6 +12,7 @@ import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.tzq.login.config.WechatAuthProperties;
@@ -61,7 +62,8 @@ public class WechatService {
         wrespData.setAccessToken(thirdSession);
         wresp.setData(wrespData);
         wresp.setWxTzqUser(consumer);
-        LOGGER.info("返回任何成功的信息");
+        String retjson = JSONObject.toJSONString(wresp);
+        LOGGER.info("返回用户认证的信息:" + retjson);
         return wresp;
     }
 

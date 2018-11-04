@@ -11,7 +11,7 @@ public class WechatAuthenticationResponseData implements Serializable {
 	 */
 	private static final long serialVersionUID = -3666824080626462528L;
 
-	@JSONField(name="access_token")
+	@JSONField(name="accessToken")
 	private String accessToken;
 
 	public String getAccessToken() {
