@@ -1,6 +1,7 @@
 package com.tzq.login.filter;
 
 import java.io.IOException;
+import java.util.Set;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -56,6 +57,12 @@ public class ThirdSessionAuthFilter extends OncePerRequestFilter {
         final String thirdSessionId = authHeader.substring(tokenHead.length());
         logger.info("认证开始！！！token: " + thirdSessionId);
         String wxSessionObj = stringRedisTemplate.opsForValue().get(thirdSessionId);
+        logger.info("认证！！！取得token: " + wxSessionObj);
+        String prefix = "*";//这个*一定要加，否则无法模糊查询
+        Set<String> keys = stringRedisTemplate.keys(prefix);
+        for(String key : keys){
+        	logger.info("认证！！！取得keys: " + wxSessionObj);
+        }
         if (StringUtils.isEmpty(wxSessionObj)) {
             throw new RuntimeException("用户身份已过期");
         }
