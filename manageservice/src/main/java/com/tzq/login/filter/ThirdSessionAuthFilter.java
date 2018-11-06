@@ -61,7 +61,7 @@ public class ThirdSessionAuthFilter extends OncePerRequestFilter {
         String prefix = "*";//这个*一定要加，否则无法模糊查询
         Set<String> keys = stringRedisTemplate.keys(prefix);
         for(String key : keys){
-        	logger.info("认证！！！取得keys: " + wxSessionObj);
+        	logger.info("认证！！！取得keys: " + key);
         }
         if (StringUtils.isEmpty(wxSessionObj)) {
             throw new RuntimeException("用户身份已过期");
