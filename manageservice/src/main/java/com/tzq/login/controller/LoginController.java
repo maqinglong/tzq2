@@ -6,12 +6,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.tzq.controller.FileUploadController;
 
 @RestController
 @RequestMapping(value="/login")
 public class LoginController {
-	private Logger logger = LoggerFactory.getLogger(FileUploadController.class.getName());
+	private Logger logger = LoggerFactory.getLogger(LoginController.class.getName());
 	
 
 	public LoginController() {

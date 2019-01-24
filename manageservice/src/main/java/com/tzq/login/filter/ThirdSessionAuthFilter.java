@@ -19,7 +19,11 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.tzq.login.service.WechatService;
 
-
+/**
+ * 认证过滤器
+ * @author 马庆龙
+ *
+ */
 
 @Component
 public class ThirdSessionAuthFilter extends OncePerRequestFilter {
@@ -29,6 +33,10 @@ public class ThirdSessionAuthFilter extends OncePerRequestFilter {
 
     @Value("${jwt.tokenHead}")
     private String tokenHead;
+    
+    @Value("${jwt.devMode:1}")
+    private String devMode ;
+    
 
     @Autowired
     private StringRedisTemplate stringRedisTemplate;
@@ -48,6 +56,11 @@ public class ThirdSessionAuthFilter extends OncePerRequestFilter {
         if (url.equals("/auth") || url.equals("/test")) {
             chain.doFilter(request, response);
             return;
+        }
+        
+        if ( "1".equals(devMode) ) {
+        	chain.doFilter(request, response);
+        	return;
         }
 
         if (null == authHeader || !authHeader.startsWith("Bearer")) {

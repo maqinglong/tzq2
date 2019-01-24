@@ -116,10 +116,22 @@ public class WechatService {
         }
     }
 
+    /**
+     * 跟新微信用户信息
+     * @param wxTzqUser
+     */
     public void updateConsumerInfo(WxTzqUser wxTzqUser) {
     	WxTzqUser wxTzqUser1 = wxTzqUserMapper.selectByPrimaryKey(wxTzqUser.getWechatOpenid());
-    	wxTzqUser1.setUpdateTime(new Date());
-    	wxTzqUserMapper.updateByPrimaryKeySelective(wxTzqUser1);
+    	if ( wxTzqUser1 != null ) {
+    		wxTzqUser1.setUpdateTime(new Date());
+        	wxTzqUserMapper.updateByPrimaryKeySelective(wxTzqUser1);
+    	}else {
+    		Date now = new Date();
+        	wxTzqUser.setCreateTime(now);
+        	wxTzqUser.setUpdateTime(now);
+        	wxTzqUserMapper.insertSelective(wxTzqUser);   		
+    	}
+    	
     }
 
 }

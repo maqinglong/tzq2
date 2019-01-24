@@ -17,6 +17,7 @@ import com.tzq.login.entity.Consumer;
 import com.tzq.login.entity.WechatAuthenticationResponse;
 import com.tzq.login.model.WxTzqUser;
 import com.tzq.login.service.WechatService;
+import com.tzq.rabbitmq.HelloSender;
 
 @RestController
 public class AuthEndpoint {
@@ -32,9 +33,12 @@ public class AuthEndpoint {
 
     @Autowired
     private WechatService wechatService;
-
+    @Autowired
+    private HelloSender helloSender;
+    
     @GetMapping("/test")
     public String test() {
+    	helloSender.send();
         return "test_success";
     }
 
