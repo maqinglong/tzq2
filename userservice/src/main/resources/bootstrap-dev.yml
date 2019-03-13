@@ -1,0 +1,21 @@
+server:
+  port: 8083
+spring:
+  cloud:
+    config:
+      name: dbconfig
+      profile: dev
+      discovery: 
+        enabled: true
+        service-id: configservice
+  application: 
+   name: userservice 
+eureka:
+  instance:
+    prefer-ip-address: true
+#    instance-id: ${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+          defaultZone: http://172.27.128.13:8671/eureka/

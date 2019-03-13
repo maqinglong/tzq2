@@ -1,0 +1,8 @@
+spring: 
+  rabbitmq: 
+    host: 47.101.48.234
+    port: 5672
+    username: tzq
+    password: Tzq123#
+    publisher-confirms: true
+    virtual-host: /

@@ -21,15 +21,15 @@ spring:
   cloud:
     config:
       name: dbconfig,mysqldb,wxconfig,redisconf,rabbitmq
-      profile: dev
-#      uri: http://localhost:8888      
+      profile: prod
+      uri: http://172.27.0.16:8888      
 #      label: master
 #      fail-fast: true
-#      retry:
-#        initial-interval: 2000
-#        max-attempts: 5
+      retry:
+        initial-interval: 2000
+        max-attempts: 5
       discovery: 
-        enabled: true
+        enabled: false
         service-id: configservice
  
 mybatis:
@@ -41,6 +41,7 @@ mybatis:
 #      
       
 logging:
+  config: classpath:logback.xml
   level:
    root: info
     

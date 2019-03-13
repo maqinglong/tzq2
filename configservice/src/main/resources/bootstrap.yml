@@ -12,10 +12,15 @@ spring:
    active: native
 eureka:
   instance:
-    prefer-ip-address: true
-#    instance-id: ${spring.application.name}:${random.value}
+    preferIpAddress: false
+    instance-id: ${spring.application.name}:${random.value}
   client:
     register-with-eureka: true
     fetchRegistry: true
-    service-url:
-          defaultZone: http://localhost:8671/eureka/
+    service-url: 
+#          defaultZone: http://172.27.128.13:8671/eureka/
+          defaultZone: http://132.232.200.197:8671/eureka/
+logging:
+  config: classpath:logback.xml
+  level: 
+   root: info

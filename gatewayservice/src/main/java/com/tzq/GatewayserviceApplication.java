@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @EnableEurekaClient
 @EnableAutoConfiguration
-@SpringBootApplication
+@SpringBootApplication(scanBasePackages= {"com.tzq","com.tzq.route"})
 @Configuration
 @RequestMapping(value="/gatewaytowenwu")
 public class GatewayserviceApplication {

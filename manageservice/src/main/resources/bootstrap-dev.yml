@@ -1,0 +1,57 @@
+server:
+  servlet:
+    context-path: /
+  port: 8081
+#  ssl:
+#    key-store: classpath:www.tuozhanquan.cn.jks
+#    key-store-password: Tuozhan201806!
+#    keyStoreType: JKS
+#    keyAlias: tomcat
+#    key-store: classpath:keystore.p12
+#    key-store-password: 123456
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+#http: 
+#  port: 8080
+spring:
+  application:
+    name: manageservice
+  profiles:
+    active: dev
+  cloud:
+    config:
+      name: dbconfig,mysqldb,wxconfig,redisconf,rabbitmq
+      profile: dev
+#      uri: http://localhost:8888      
+#      label: master
+#      fail-fast: true
+#      retry:
+#        initial-interval: 2000
+#        max-attempts: 5
+      discovery: 
+        enabled: true
+        service-id: configservice
+ 
+mybatis:
+   mapperLocations: classpath:mybatis/mappings/com/tzq/mapping/*.xml
+#  mvc:
+#    view:
+#      prefix: /pages
+#      suffix: .jsp    
+#      
+      
+logging:
+  config: classpath:logback.xml
+  level:
+   root: info
+    
+eureka:
+  instance:
+    preferIpAddress: false
+#    prefer-ip-address: false
+    instance-id: ${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+          defaultZone: http://127.0.0.1:8671/eureka/

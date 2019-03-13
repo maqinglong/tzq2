@@ -1,0 +1,37 @@
+server:
+  port: 8082
+
+#  ssl:
+#    key-store: classpath:www.tuozhanquan.cn.jks
+#    key-store-password: Tuozhan201806!
+#    keyStoreType: JKS
+#    keyAlias: tomcat
+#    key-store: classpath:keystore.p12
+#    key-store-password: 123456
+#    keyStoreType: PKCS12
+#    keyAlias: tomcat
+#http: 
+#  port: 80
+spring:
+  application:
+    name: gatewayservice
+  profiles: 
+    active: dev
+  cloud:
+    gateway:
+      routes:
+      - id: nameRoot
+        uri: lb://manageservice
+        predicates:
+        - Path=/gatewaytowenwu/**
+        filters:
+        - StripPrefix=1
+eureka:
+  instance:
+    prefer-ip-address: false
+#    instance-id: ${spring.application.name}:${random.value}
+  client:
+    register-with-eureka: true
+    fetchRegistry: true
+    service-url:
+          defaultZone: http://127.0.0.1:8671/eureka/
