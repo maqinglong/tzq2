@@ -17,20 +17,20 @@ spring:
   application:
     name: manageservice
   profiles:
-    active: prod
+#    active: dev
+    active: @build.profile.id@
   cloud:
     config:
       name: dbconfig,mysqldb,wxconfig,redisconf,rabbitmq
-      profile: prod
-      uri: http://172.27.0.16:8888
-#      uri: http://localhost:8888      
+#      profile: prod
+      uri: http://127.0.0.1:8888      
 #      label: master
 #      fail-fast: true
 #      retry:
 #        initial-interval: 2000
 #        max-attempts: 5
       discovery: 
-        enabled: false
+        enabled: true
         service-id: configservice
  
 mybatis:
@@ -44,7 +44,7 @@ mybatis:
 logging:
   config: classpath:logback.xml
   level: 
-   root: info
+   root: debug
     
 eureka:
   instance:
@@ -55,4 +55,4 @@ eureka:
     register-with-eureka: true
     fetchRegistry: true
     service-url:
-          defaultZone: http://172.27.128.13:8671/eureka/
+          defaultZone: http://127.0.0.1:8671/eureka/

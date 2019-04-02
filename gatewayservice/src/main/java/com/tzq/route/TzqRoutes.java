@@ -19,8 +19,13 @@ public class TzqRoutes {
         return builder.routes()
             .route(p -> p
                 .path("/get")
-                .filters(f -> f.addRequestHeader("Hello", "World"))
+                .filters(f -> f.addRequestHeader("Hello11", "World"))
                 .uri(httpUri))
+            .route("pathroute",p -> p
+                    .path("/adduser")
+                    .filters(f -> f.addRequestHeader("Hello11", "World"))
+                    .uri("https://cn.bing.com")                    
+                    )
             .route(p -> p
                 .host("*.hystrix.com")
                 .filters(f -> f

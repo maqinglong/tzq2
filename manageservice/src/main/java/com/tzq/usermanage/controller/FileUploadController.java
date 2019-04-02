@@ -75,22 +75,22 @@ public class FileUploadController {
                 saveFile.getParentFile().mkdirs();
             }
             try {
-            	logger.info("上传文件写入磁盘");
+            	logger.info("上传文件写入磁盘");            	
                 BufferedOutputStream out = new BufferedOutputStream(new FileOutputStream(saveFile));
                 out.write(file.getBytes());
                 out.flush();
                 out.close();
                 logger.info("上传文件成功");
-                ret = makeResJson("00",Contansts.FIILUPLOAD_SUCCES_MESSAGE);                
+                ret = makeResJson("00",Contansts.FIILUPLOAD_SUCCES_MESSAGE,saveFileName);                
             } catch (FileNotFoundException e) {
-            	ret = makeResJson("02",Contansts.FIILUPLOAD_FAIL_MESSAGE);                
+            	ret = makeResJson("02",Contansts.FIILUPLOAD_FAIL_MESSAGE,saveFileName);                
             } catch (IOException e) {
                 e.printStackTrace();
-                ret = makeResJson("03",Contansts.FIILUPLOAD_FAIL_MESSAGE);                
+                ret = makeResJson("03",Contansts.FIILUPLOAD_FAIL_MESSAGE,saveFileName);                
             }
             
         } else {
-        	ret = makeResJson("01",Contansts.FIILUPLOAD_FAIL_MESSAGE);            
+        	ret = makeResJson("01",Contansts.FIILUPLOAD_FAIL_MESSAGE,"");            
         }
     	
     	return ret;
@@ -103,12 +103,13 @@ public class FileUploadController {
      * @param errMsg
      * @return
      */
-    private String makeResJson(String returnCode ,String errMsg) {
+    private String makeResJson(String returnCode ,String errMsg ,String saveFileName) {
     	String ret = "";
     	
     	Map<String,String> retMap = new HashMap<String,String>(2);
     	retMap.put("returnCode", returnCode);
     	retMap.put("errMsg", errMsg);
+    	retMap.put("saveFileName", saveFileName);
     	ret =  JSONObject.toJSONString(retMap);
     	return ret;  	
     	

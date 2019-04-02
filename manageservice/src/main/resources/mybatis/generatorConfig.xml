@@ -39,5 +39,6 @@
        <!-- <table tableName="wx_tzq_user" domainObjectName="WxTzqUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
         <!-- <table tableName="act_users" domainObjectName="ActUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
         <table tableName="act_users" domainObjectName="ActUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <!-- <table tableName="wxch_user" domainObjectName="WxchUser" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table> -->
     </context>
 </generatorConfiguration>

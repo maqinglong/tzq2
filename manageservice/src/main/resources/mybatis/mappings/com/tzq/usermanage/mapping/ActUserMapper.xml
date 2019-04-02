@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tzq.usermanage.model.ActUser">
     <id column="Id" jdbcType="BIGINT" property="id" />
     <id column="user_No" jdbcType="VARCHAR" property="userNo" />
+    <result column="wechat_id" jdbcType="CHAR" property="wechatId" />
     <result column="user_Name" jdbcType="VARCHAR" property="userName" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
@@ -14,12 +15,13 @@
     <result column="reg_Time" jdbcType="TIMESTAMP" property="regTime" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="tzq_level" jdbcType="VARCHAR" property="tzqLevel" />
+    <result column="pic_file_name" jdbcType="VARCHAR" property="picFileName" />
     <result column="create_Time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, user_No, user_Name, nick_name, mobile, phone, Id_Type, Id_No, sex, reg_Time, 
-    company, tzq_level, create_Time, update_Time
+    Id, user_No, wechat_id, user_Name, nick_name, mobile, phone, Id_Type, Id_No, sex, 
+    reg_Time, company, tzq_level, pic_file_name, create_Time, update_Time
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.tzq.usermanage.model.ActUserKey" resultMap="BaseResultMap">
     select 
@@ -34,16 +36,18 @@
       and user_No = #{userNo,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.tzq.usermanage.model.ActUser">
-    insert into act_users (Id, user_No, user_Name, 
-      nick_name, mobile, phone, 
-      Id_Type, Id_No, sex, 
-      reg_Time, company, tzq_level, 
-      create_Time, update_Time)
-    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{nickName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{idType,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, 
-      #{regTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, #{tzqLevel,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})
+    insert into act_users (Id, user_No, wechat_id, 
+      user_Name, nick_name, mobile, 
+      phone, Id_Type, Id_No, 
+      sex, reg_Time, company, 
+      tzq_level, pic_file_name, create_Time, 
+      update_Time)
+    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{wechatId,jdbcType=CHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{regTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
+      #{tzqLevel,jdbcType=VARCHAR}, #{picFileName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{updateTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.tzq.usermanage.model.ActUser">
     insert into act_users
@@ -53,6 +57,9 @@
       </if>
       <if test="userNo != null">
         user_No,
+      </if>
+      <if test="wechatId != null">
+        wechat_id,
       </if>
       <if test="userName != null">
         user_Name,
@@ -84,6 +91,9 @@
       <if test="tzqLevel != null">
         tzq_level,
       </if>
+      <if test="picFileName != null">
+        pic_file_name,
+      </if>
       <if test="createTime != null">
         create_Time,
       </if>
@@ -97,6 +107,9 @@
       </if>
       <if test="userNo != null">
         #{userNo,jdbcType=VARCHAR},
+      </if>
+      <if test="wechatId != null">
+        #{wechatId,jdbcType=CHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -128,6 +141,9 @@
       <if test="tzqLevel != null">
         #{tzqLevel,jdbcType=VARCHAR},
       </if>
+      <if test="picFileName != null">
+        #{picFileName,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -139,6 +155,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tzq.usermanage.model.ActUser">
     update act_users
     <set>
+      <if test="wechatId != null">
+        wechat_id = #{wechatId,jdbcType=CHAR},
+      </if>
       <if test="userName != null">
         user_Name = #{userName,jdbcType=VARCHAR},
       </if>
@@ -169,6 +188,9 @@
       <if test="tzqLevel != null">
         tzq_level = #{tzqLevel,jdbcType=VARCHAR},
       </if>
+      <if test="picFileName != null">
+        pic_file_name = #{picFileName,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null">
         create_Time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -181,7 +203,8 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tzq.usermanage.model.ActUser">
     update act_users
-    set user_Name = #{userName,jdbcType=VARCHAR},
+    set wechat_id = #{wechatId,jdbcType=CHAR},
+      user_Name = #{userName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
@@ -191,6 +214,7 @@
       reg_Time = #{regTime,jdbcType=TIMESTAMP},
       company = #{company,jdbcType=VARCHAR},
       tzq_level = #{tzqLevel,jdbcType=VARCHAR},
+      pic_file_name = #{picFileName,jdbcType=VARCHAR},
       create_Time = #{createTime,jdbcType=TIMESTAMP},
       update_Time = #{updateTime,jdbcType=TIMESTAMP}
     where Id = #{id,jdbcType=BIGINT}

@@ -209,7 +209,14 @@
             <resource>
                 <filtering>true</filtering>
                 <directory>src/main/resources</directory>
+                <includes>
+                	<include>**/*.xml</include>
+                	<include>**/*.html</include>
+                	<include>**/bootstrap-${build.profile.id}.yml</include>
+                	<include>**/bootstrap.yml</include>
+                </includes>
             </resource>
+            
         </resources>
 	</build>
 

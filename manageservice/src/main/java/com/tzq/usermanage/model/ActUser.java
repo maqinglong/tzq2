@@ -3,6 +3,8 @@ package com.tzq.usermanage.model;
 import java.util.Date;
 
 public class ActUser extends ActUserKey {
+    private String wechatId;
+
     private String userName;
 
     private String nickName;
@@ -23,9 +25,19 @@ public class ActUser extends ActUserKey {
 
     private String tzqLevel;
 
+    private String picFileName;
+
     private Date createTime;
 
     private Date updateTime;
+
+    public String getWechatId() {
+        return wechatId;
+    }
+
+    public void setWechatId(String wechatId) {
+        this.wechatId = wechatId == null ? null : wechatId.trim();
+    }
 
     public String getUserName() {
         return userName;
@@ -105,6 +117,14 @@ public class ActUser extends ActUserKey {
 
     public void setTzqLevel(String tzqLevel) {
         this.tzqLevel = tzqLevel == null ? null : tzqLevel.trim();
+    }
+
+    public String getPicFileName() {
+        return picFileName;
+    }
+
+    public void setPicFileName(String picFileName) {
+        this.picFileName = picFileName == null ? null : picFileName.trim();
     }
 
     public Date getCreateTime() {

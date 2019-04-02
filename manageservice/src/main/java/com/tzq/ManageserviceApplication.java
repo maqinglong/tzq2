@@ -15,9 +15,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.tzq.dao.ecsUsersMapper;
-import com.tzq.model.ecsUsers;
-
 /**
  *  主程序
  * @author 马庆龙
@@ -33,8 +30,7 @@ public class ManageserviceApplication {
 	private Logger logger = LoggerFactory.getLogger(ManageserviceApplication.class.getName());
 	@Value("${mysql.database.url}")	
     private String dbUrl;
-	@Autowired
-	private ecsUsersMapper ecsUsersMapper1;
+
 	
 	@RequestMapping("/")
 	@ResponseBody
@@ -43,10 +39,8 @@ public class ManageserviceApplication {
 	}
 	@RequestMapping("/ccc")
 	@ResponseBody
-	String ccc() {
-		ecsUsers esuser = ecsUsersMapper1.selectByPrimaryKey(29) ;
-		
-		return "{name: ccc}" + esuser.getTeacher();
+	String ccc() {		
+		return "{name: ccc}" ;
 	}
 	
 	

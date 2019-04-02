@@ -59,6 +59,7 @@ public class AuthEndpoint {
 
     @PostMapping("/updateConsumerInfo")
     public void updateConsumerInfo(@RequestBody WxTzqUser consumer) {
+    	LOGGER.info("保存微信用户信息 wechatOpneId" + consumer.getWechatOpenid() );
         wechatService.updateConsumerInfo(consumer);
     }
 
