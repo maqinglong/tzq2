@@ -3,7 +3,7 @@ server:
 spring:
   cloud:
     config:
-      name: dbconfig
+      name: dbconfig,mysqldb
       profile: dev
       discovery: 
         enabled: true
@@ -18,4 +18,4 @@ eureka:
     register-with-eureka: true
     fetchRegistry: true
     service-url:
-          defaultZone: http://172.27.128.13:8671/eureka/
+          defaultZone: http://127.0.0.1:8671/eureka/

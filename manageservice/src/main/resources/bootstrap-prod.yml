@@ -22,7 +22,7 @@ spring:
     config:
       name: dbconfig,mysqldb,wxconfig,redisconf,rabbitmq
       profile: prod
-      uri: http://172.27.0.16:8888      
+      uri: http://115.159.23.182:8888      
 #      label: master
 #      fail-fast: true
       retry:
