@@ -1,12 +1,15 @@
 package com.tzq.usermanage.service;
 
+import java.util.Date;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.tzq.usermanage.controller.ActUserController;
+import com.tzq.sys.utils.PubFun;
 import com.tzq.usermanage.dao.ActUserMapper;
+import com.tzq.usermanage.dao.ActUserMapperExt;
 import com.tzq.usermanage.model.ActUser;
 
 /**
@@ -20,7 +23,8 @@ public class ActUserService {
 	private Logger logger = LoggerFactory.getLogger(ActUserService.class.getName());
 	@Autowired
 	ActUserMapper actUserMapper ;
-	
+	@Autowired
+	ActUserMapperExt actUserMapperExt;
 
 	/**
 	 * 保存用户信息
@@ -31,9 +35,19 @@ public class ActUserService {
 		int ret = 0;
 		if ( actUser != null ) {
 			try {
-				ret = actUserMapper.insert(actUser);
+				ActUser actUserOld = actUserMapperExt.selectByWechatOpenid(actUser.getWechatOpenid());
+				if (actUserOld != null ) {
+					actUser.setUserNo(actUserOld.getUserNo());
+					actUser.setUpdateTime(new Date());
+					actUserMapperExt.updateByUserNoSelective(actUser);
+				}else {
+					String userNo = PubFun.CreateMaxSerialNo("AU", 5);
+					actUser.setUserNo(userNo);
+					actUser.setCreateTime(new Date());
+					ret = actUserMapper.insert(actUser);
+				}
 				if (ret >0 ) {
-					logger.info("插入用户信息成功!userNo:{},userName{}",actUser.getUserNo(),actUser.getUserName());
+					logger.info("保存用户信息成功!userNo:{},userName{}",actUser.getUserNo(),actUser.getUserName());
 				}
 			}catch(Exception e) {
 				logger.error("插入数据有误{}",e.getMessage());

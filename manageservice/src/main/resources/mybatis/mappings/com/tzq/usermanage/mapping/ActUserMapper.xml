@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tzq.usermanage.model.ActUser">
     <id column="Id" jdbcType="BIGINT" property="id" />
     <id column="user_No" jdbcType="VARCHAR" property="userNo" />
-    <result column="wechat_id" jdbcType="CHAR" property="wechatId" />
+    <result column="wechat_openid" jdbcType="CHAR" property="wechatOpenid" />
     <result column="user_Name" jdbcType="VARCHAR" property="userName" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
     <result column="mobile" jdbcType="VARCHAR" property="mobile" />
@@ -12,6 +12,11 @@
     <result column="Id_Type" jdbcType="VARCHAR" property="idType" />
     <result column="Id_No" jdbcType="VARCHAR" property="idNo" />
     <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="county" jdbcType="VARCHAR" property="county" />
+    <result column="detail_address" jdbcType="VARCHAR" property="detailAddress" />
     <result column="reg_Time" jdbcType="TIMESTAMP" property="regTime" />
     <result column="company" jdbcType="VARCHAR" property="company" />
     <result column="tzq_level" jdbcType="VARCHAR" property="tzqLevel" />
@@ -20,8 +25,9 @@
     <result column="update_Time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
-    Id, user_No, wechat_id, user_Name, nick_name, mobile, phone, Id_Type, Id_No, sex, 
-    reg_Time, company, tzq_level, pic_file_name, create_Time, update_Time
+    Id, user_No, wechat_openid, user_Name, nick_name, mobile, phone, Id_Type, Id_No, 
+    sex, age, province, city, county, detail_address, reg_Time, company, tzq_level, pic_file_name, 
+    create_Time, update_Time
   </sql>
   <select id="selectByPrimaryKey" parameterType="com.tzq.usermanage.model.ActUserKey" resultMap="BaseResultMap">
     select 
@@ -36,18 +42,22 @@
       and user_No = #{userNo,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.tzq.usermanage.model.ActUser">
-    insert into act_users (Id, user_No, wechat_id, 
+    insert into act_users (Id, user_No, wechat_openid, 
       user_Name, nick_name, mobile, 
       phone, Id_Type, Id_No, 
-      sex, reg_Time, company, 
-      tzq_level, pic_file_name, create_Time, 
-      update_Time)
-    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{wechatId,jdbcType=CHAR}, 
+      sex, age, province, 
+      city, county, detail_address, 
+      reg_Time, company, tzq_level, 
+      pic_file_name, create_Time, update_Time
+      )
+    values (#{id,jdbcType=BIGINT}, #{userNo,jdbcType=VARCHAR}, #{wechatOpenid,jdbcType=CHAR}, 
       #{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR}, #{idNo,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=VARCHAR}, #{regTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, 
-      #{tzqLevel,jdbcType=VARCHAR}, #{picFileName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{updateTime,jdbcType=TIMESTAMP})
+      #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, #{province,jdbcType=VARCHAR}, 
+      #{city,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, #{detailAddress,jdbcType=VARCHAR}, 
+      #{regTime,jdbcType=TIMESTAMP}, #{company,jdbcType=VARCHAR}, #{tzqLevel,jdbcType=VARCHAR}, 
+      #{picFileName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tzq.usermanage.model.ActUser">
     insert into act_users
@@ -58,8 +68,8 @@
       <if test="userNo != null">
         user_No,
       </if>
-      <if test="wechatId != null">
-        wechat_id,
+      <if test="wechatOpenid != null">
+        wechat_openid,
       </if>
       <if test="userName != null">
         user_Name,
@@ -81,6 +91,21 @@
       </if>
       <if test="sex != null">
         sex,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="county != null">
+        county,
+      </if>
+      <if test="detailAddress != null">
+        detail_address,
       </if>
       <if test="regTime != null">
         reg_Time,
@@ -108,8 +133,8 @@
       <if test="userNo != null">
         #{userNo,jdbcType=VARCHAR},
       </if>
-      <if test="wechatId != null">
-        #{wechatId,jdbcType=CHAR},
+      <if test="wechatOpenid != null">
+        #{wechatOpenid,jdbcType=CHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -131,6 +156,21 @@
       </if>
       <if test="sex != null">
         #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null">
+        #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null">
+        #{detailAddress,jdbcType=VARCHAR},
       </if>
       <if test="regTime != null">
         #{regTime,jdbcType=TIMESTAMP},
@@ -155,8 +195,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.tzq.usermanage.model.ActUser">
     update act_users
     <set>
-      <if test="wechatId != null">
-        wechat_id = #{wechatId,jdbcType=CHAR},
+      <if test="wechatOpenid != null">
+        wechat_openid = #{wechatOpenid,jdbcType=CHAR},
       </if>
       <if test="userName != null">
         user_Name = #{userName,jdbcType=VARCHAR},
@@ -178,6 +218,21 @@
       </if>
       <if test="sex != null">
         sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null">
+        county = #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="detailAddress != null">
+        detail_address = #{detailAddress,jdbcType=VARCHAR},
       </if>
       <if test="regTime != null">
         reg_Time = #{regTime,jdbcType=TIMESTAMP},
@@ -203,7 +258,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tzq.usermanage.model.ActUser">
     update act_users
-    set wechat_id = #{wechatId,jdbcType=CHAR},
+    set wechat_openid = #{wechatOpenid,jdbcType=CHAR},
       user_Name = #{userName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
@@ -211,6 +266,11 @@
       Id_Type = #{idType,jdbcType=VARCHAR},
       Id_No = #{idNo,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      county = #{county,jdbcType=VARCHAR},
+      detail_address = #{detailAddress,jdbcType=VARCHAR},
       reg_Time = #{regTime,jdbcType=TIMESTAMP},
       company = #{company,jdbcType=VARCHAR},
       tzq_level = #{tzqLevel,jdbcType=VARCHAR},

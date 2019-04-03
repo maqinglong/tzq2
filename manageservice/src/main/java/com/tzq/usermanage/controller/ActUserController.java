@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +38,7 @@ public class ActUserController {
 	ActUserService actUserService ;
 	
 	
-	@PostMapping(value = "/addUser")
+	@PostMapping(value = "/addUser",produces="application/json;charset=utf-8")
 	@ResponseBody
 	public String addUser(@RequestBody String userInfo, HttpServletRequest request) {
 		logger.info("开始用户信息新建处理");
@@ -49,11 +50,9 @@ public class ActUserController {
 		if (userInfo != null && !"".equals(userInfo)) {
 			jsonObj = JSONObject.parseObject(userInfo);
 			actuser = JSONObject.toJavaObject(jsonObj, ActUser.class);
-			String userNo = PubFun.CreateMaxSerialNo("AU", 5);
-			actuser.setUserNo(userNo);
+			
 			int ret = actUserService.saveActUser(actuser);
-		}
-		
+		}		
 
 		return result;
 	}
@@ -61,7 +60,7 @@ public class ActUserController {
 	private ActUser  getRequestUserInfo(HttpServletRequest request) {
 		ActUser actuser = new ActUser();
 		actuser.setUserName(request.getParameter("userName"));
-	    actuser.setWechatId(request.getParameter("wechatId"));
+	    actuser.setWechatOpenid(request.getParameter("wechatId"));
 //	    actuser.setPhone(phone);
 //    	String age = request.getParameter("age");
 //    	String wechatId = request.getParameter("wechatId");
@@ -85,7 +84,7 @@ public class ActUserController {
     	ActUser actUser =  getRequestUserInfo(request);
     	logger.info("userName:" + actUser.getUserName());
 //    	logger.info("age:" + actUser.get);
-    	logger.info("wechatId:" + actUser.getWechatId());
+    	logger.info("wechatId:" + actUser.getWechatOpenid());
 //    	logger.info("userName:" + userName);
     	
     	if (file != null && !file.isEmpty()) {

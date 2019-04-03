@@ -3,7 +3,7 @@ package com.tzq.usermanage.model;
 import java.util.Date;
 
 public class ActUser extends ActUserKey {
-    private String wechatId;
+    private String wechatOpenid;
 
     private String userName;
 
@@ -19,6 +19,16 @@ public class ActUser extends ActUserKey {
 
     private String sex;
 
+    private Integer age;
+
+    private String province;
+
+    private String city;
+
+    private String county;
+
+    private String detailAddress;
+
     private Date regTime;
 
     private String company;
@@ -31,12 +41,12 @@ public class ActUser extends ActUserKey {
 
     private Date updateTime;
 
-    public String getWechatId() {
-        return wechatId;
+    public String getWechatOpenid() {
+        return wechatOpenid;
     }
 
-    public void setWechatId(String wechatId) {
-        this.wechatId = wechatId == null ? null : wechatId.trim();
+    public void setWechatOpenid(String wechatOpenid) {
+        this.wechatOpenid = wechatOpenid == null ? null : wechatOpenid.trim();
     }
 
     public String getUserName() {
@@ -93,6 +103,46 @@ public class ActUser extends ActUserKey {
 
     public void setSex(String sex) {
         this.sex = sex == null ? null : sex.trim();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getProvince() {
+        return province;
+    }
+
+    public void setProvince(String province) {
+        this.province = province == null ? null : province.trim();
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city == null ? null : city.trim();
+    }
+
+    public String getCounty() {
+        return county;
+    }
+
+    public void setCounty(String county) {
+        this.county = county == null ? null : county.trim();
+    }
+
+    public String getDetailAddress() {
+        return detailAddress;
+    }
+
+    public void setDetailAddress(String detailAddress) {
+        this.detailAddress = detailAddress == null ? null : detailAddress.trim();
     }
 
     public Date getRegTime() {
