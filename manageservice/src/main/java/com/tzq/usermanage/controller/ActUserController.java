@@ -1,15 +1,13 @@
 package com.tzq.usermanage.controller;
 
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,17 +15,22 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.ResourceLoader;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONObject;
 import com.tzq.contanst.Contansts;
-import com.tzq.sys.utils.PubFun;
 import com.tzq.usermanage.model.ActUser;
 import com.tzq.usermanage.service.ActUserService;
+import com.tzq.utils.FileNameUtils;
 
 @RestController
 @RequestMapping("/usermanage")
@@ -36,7 +39,15 @@ public class ActUserController {
 	private Logger logger = LoggerFactory.getLogger(ActUserController.class.getName());
 	@Autowired
 	ActUserService actUserService ;
+	private final ResourceLoader resourceLoader;
 	
+	@Value("${fileupload.path:/app/upload/}")
+	private String fileUploadPath ;
+	
+	@Autowired
+    public ActUserController(ResourceLoader resourceLoader) {
+        this.resourceLoader = resourceLoader;
+    }
 	
 	@PostMapping(value = "/addUser",produces="application/json;charset=utf-8")
 	@ResponseBody
@@ -52,6 +63,9 @@ public class ActUserController {
 			actuser = JSONObject.toJavaObject(jsonObj, ActUser.class);
 			
 			int ret = actUserService.saveActUser(actuser);
+			if ( ret >0 ) {
+				result = makeResJson("00","add user Success!","");
+			}
 		}		
 
 		return result;
@@ -61,11 +75,7 @@ public class ActUserController {
 		ActUser actuser = new ActUser();
 		actuser.setUserName(request.getParameter("userName"));
 	    actuser.setWechatOpenid(request.getParameter("wechatId"));
-//	    actuser.setPhone(phone);
-//    	String age = request.getParameter("age");
-//    	String wechatId = request.getParameter("wechatId");
-    	
-    	
+   	
 		return actuser;
 	}
 	
@@ -83,16 +93,14 @@ public class ActUserController {
     	
     	ActUser actUser =  getRequestUserInfo(request);
     	logger.info("userName:" + actUser.getUserName());
-//    	logger.info("age:" + actUser.get);
     	logger.info("wechatId:" + actUser.getWechatOpenid());
-//    	logger.info("userName:" + userName);
     	
     	if (file != null && !file.isEmpty()) {
     		
-            String saveFileName = file.getOriginalFilename();
+            String saveFileName =  FileNameUtils.getFileName(file.getOriginalFilename()) ;
+            
             logger.info("文件名"+ saveFileName);
-//	            File saveFile = new File(request.getSession().getServletContext().getRealPath("/upload/") + saveFileName);
-            File saveFile = new File("/app/upload/" + saveFileName);
+            File saveFile = new File(fileUploadPath + saveFileName);
             if (!saveFile.getParentFile().exists()) {
                 saveFile.getParentFile().mkdirs();
             }
@@ -134,5 +142,44 @@ public class ActUserController {
     	ret =  JSONObject.toJSONString(retMap);
     	return ret;  	
     	
+    }
+    /**
+     * 通过微信号取得微信信息
+     * @param userInfo
+     * @param request
+     * @return
+     */
+    @PostMapping(value = "/showUserInfo",produces="application/json;charset=utf-8")
+    @ResponseBody
+    public String showActUserInfo(@RequestBody String userInfo, HttpServletRequest request) {
+    	String ret="";
+    	logger.info("请求的用户查询jason :{} " , userInfo);
+		if (userInfo != null && !"".equals(userInfo)) {
+			JSONObject jsonObj = JSONObject.parseObject(userInfo);
+			String wechatOpenid = jsonObj.getString("wechatOpenid");
+			ActUser actuser = actUserService.getActUserInfo(wechatOpenid);
+			if (actuser != null ) {
+				List<ActUser> list = new ArrayList<ActUser>(1);
+				list.add(actuser);
+				ret = JSONObject.toJSONString(list);
+			}			
+		}
+		logger.info("查询到的用户信息{}",ret);
+    	return ret;
+    }
+    /**
+     * 显示单张图片
+     * @return
+     */
+    @RequestMapping("show")
+    public ResponseEntity showPhotos(String fileName){
+
+        try {
+        	logger.info("显示文件名：" + fileName);
+            // 由于是读取本机的文件，file是一定要加上的， path是在application配置文件中的路径
+            return ResponseEntity.ok(resourceLoader.getResource("file:" + fileUploadPath + fileName));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }

@@ -56,4 +56,14 @@ public class ActUserService {
 		}
 		return ret;
 	}
+	
+	/**
+	 * 取得用户信息
+	 * @param wechatOpenid
+	 * @return
+	 */
+	public ActUser getActUserInfo(String wechatOpenid) {
+		ActUser ret = actUserMapperExt.selectByWechatOpenid(wechatOpenid);
+		return ret;
+	}
 }

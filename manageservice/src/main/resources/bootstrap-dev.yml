@@ -2,17 +2,6 @@ server:
   servlet:
     context-path: /
   port: 8081
-#  ssl:
-#    key-store: classpath:www.tuozhanquan.cn.jks
-#    key-store-password: Tuozhan201806!
-#    keyStoreType: JKS
-#    keyAlias: tomcat
-#    key-store: classpath:keystore.p12
-#    key-store-password: 123456
-#    keyStoreType: PKCS12
-#    keyAlias: tomcat
-#http: 
-#  port: 8080
 spring:
   application:
     name: manageservice
@@ -20,14 +9,8 @@ spring:
     active: dev
   cloud:
     config:
-      name: dbconfig,mysqldb,wxconfig,redisconf,rabbitmq
+      name: dbconfig,mysqldb,wxconfig,redisconf,rabbitmq,usermanage
       profile: dev
-#      uri: http://localhost:8888      
-#      label: master
-#      fail-fast: true
-#      retry:
-#        initial-interval: 2000
-#        max-attempts: 5
       discovery: 
         enabled: true
         service-id: configservice

@@ -1,0 +1,21 @@
+spring:
+  cloud:
+     instance-count: 1
+     instance-index: 0
+     stream:
+        kafka:
+          binder:
+            brokers: 192.168.128.147:9092
+            zk-nodes: 192.168.128.147:2181
+            auto-add-partitions: true
+            auto-create-topics: true
+            min-partition-count: 1
+        bindings:
+          output:
+            destination: mytopic
+            content-type: text/plain
+            producer:
+              partitionCount: 1
+
+fileupload:
+  path: /app/upload

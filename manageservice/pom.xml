@@ -40,7 +40,7 @@
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>			 
+			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -54,15 +54,20 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-security</artifactId>
 		</dependency>
-		<!-- <dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-test</artifactId>
-		</dependency>
-		 -->
 		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpclient</artifactId>
-		    </dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-redis</artifactId>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
+		<dependency>
+			<groupId>redis.clients</groupId>
+			<artifactId>jedis</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.apache.httpcomponents</groupId>
+			<artifactId>httpclient</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -82,7 +87,7 @@
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			</dependency>
+		</dependency>
 		<!-- MyBatis -->
 		<dependency>
 			<groupId>org.mybatis.spring.boot</groupId>
@@ -118,26 +123,31 @@
 			<artifactId>fastjson</artifactId>
 			<version>${fastjson.version}</version>
 		</dependency>
- <!-- 添加springboot对amqp的支持 -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-amqp</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-tomcat</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-jasper</artifactId>
-            <scope>provided</scope>
-        </dependency>
-        
-        <dependency>
-		    <groupId>org.yaml</groupId>
-		    <artifactId>snakeyaml</artifactId>
-		    <version>1.19</version>
+		<!-- 添加springboot对amqp的支持 -->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-amqp</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-stream-rabbit</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.tomcat.embed</groupId>
+			<artifactId>tomcat-embed-jasper</artifactId>
+			<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>org.yaml</groupId>
+			<artifactId>snakeyaml</artifactId>
+			<version>1.19</version>
 		</dependency>
 	</dependencies>
 
@@ -153,21 +163,21 @@
 		</dependencies>
 	</dependencyManagement>
 	<profiles>
-	    <profile>
-	        <id>prod</id>	        
-	        <properties>
-	            <build.profile.id>prod</build.profile.id>
-	        </properties>
-	    </profile>
-	    <profile>
-	    	<activation>
-	            <activeByDefault>true</activeByDefault>
-	        </activation>
-	        <id>dev</id>
-	        <properties>
-	            <build.profile.id>dev</build.profile.id>
-	        </properties>
-	    </profile>
+		<profile>
+			<id>prod</id>
+			<properties>
+				<build.profile.id>prod</build.profile.id>
+			</properties>
+		</profile>
+		<profile>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			<id>dev</id>
+			<properties>
+				<build.profile.id>dev</build.profile.id>
+			</properties>
+		</profile>
 	</profiles>
 	<build>
 		<plugins>
@@ -202,25 +212,25 @@
 			</plugin>
 		</plugins>
 		<filters>
-            <filter>src/main/resources/bootstrap-${build.profile.id}.yml</filter>
-        </filters>
- 
-        <resources>
-            <resource>
-                <filtering>true</filtering>
-                <directory>src/main/resources</directory>
-                <includes>
-                	<include>**/*.xml</include>
-                	<include>**/*.html</include>
-                	<include>**/bootstrap-${build.profile.id}.yml</include>
-                	<include>**/bootstrap.yml</include>
-                </includes>
-            </resource>
-            
-        </resources>
+			<filter>src/main/resources/bootstrap-${build.profile.id}.yml</filter>
+		</filters>
+
+		<resources>
+			<resource>
+				<filtering>true</filtering>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>**/*.xml</include>
+					<include>**/*.html</include>
+					<include>**/bootstrap-${build.profile.id}.yml</include>
+					<include>**/bootstrap.yml</include>
+				</includes>
+			</resource>
+
+		</resources>
 	</build>
 
 
- 
+
 
 </project>
