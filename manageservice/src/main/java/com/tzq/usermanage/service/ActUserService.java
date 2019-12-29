@@ -1,6 +1,7 @@
 package com.tzq.usermanage.service;
 
 import java.util.Date;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -64,6 +65,15 @@ public class ActUserService {
 	 */
 	public ActUser getActUserInfo(String wechatOpenid) {
 		ActUser ret = actUserMapperExt.selectByWechatOpenid(wechatOpenid);
+		return ret;
+	}
+	
+	/**
+	 * 取得所有教练的信息
+	 * @return
+	 */
+	public List<ActUser> getAllActUserInfo(){
+		List<ActUser> ret = actUserMapperExt.selectAllUsersInfo();		
 		return ret;
 	}
 }
